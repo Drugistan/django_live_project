@@ -30,7 +30,3 @@ class TopPacksSerializer(serializers.ModelSerializer):
     class Meta:
         model = TopPacks
         fields = "__all__"
-
-    def validate(self, attrs):
-        image = attrs.get["add_image"]
-        print(image)
