@@ -19,7 +19,7 @@ class TestimonialGetView(APIView):
 
     @staticmethod
     def get(request):
-        testimonials = Testimonial.objects.select_related().all()
+        testimonials = Testimonial.active_testimonial.get_active_testimonial()
         if testimonials:
             serializer_ = TestimonialGetSerializer(testimonials, many=True)
             if serializer_:

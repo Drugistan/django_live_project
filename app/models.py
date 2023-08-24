@@ -1,7 +1,7 @@
 from django.db import models
 import os
 
-from app.managers import ActiveCareersManager, ActiveTopPacksManager
+from app.managers import ActiveCareersManager, ActiveTopPacksManager, ActiveTestimonialsManager
 
 
 def image_path_rename(instance, filename):
@@ -37,6 +37,8 @@ class Testimonial(models.Model):
     designation = models.CharField(max_length=100, null=False, blank=False)
     company = models.CharField(max_length=100, null=True, blank=True)
     other = models.CharField(max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=False)
+    active_testimonial = ActiveTestimonialsManager()
 
     def __str__(self):
         return self.client_name
@@ -47,7 +49,7 @@ class Careers(models.Model):
     title = models.CharField(max_length=100, null=True, blank=True)
     job_role = models.TextField()
     folder_name = "Careers"
-    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
+    image = models.ImageField(upload_to=image_path_rename, null=True, blank=True)
     is_full_time_role = models.BooleanField(default=False)
     is_remote_role = models.BooleanField(default=False)
     created_at = models.DateField()

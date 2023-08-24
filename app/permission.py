@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 
-class TopBannerAdmin(admin.ModelAdmin):
+class CustomAdmin(admin.ModelAdmin):
+    list_display = ["title", "description", "image"]
 
     def has_add_permission(self, request):
         return False
