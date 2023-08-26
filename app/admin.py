@@ -13,11 +13,10 @@ from django.contrib.auth.models import Group
 admin.site.register(TopBanner, CustomTopBanner)
 admin.site.register(CareerBanner, CustomAdmin)
 admin.site.register(AboutBanner)
-admin.site.register(TopBannerImages)
 
 
 class TopPacksModelAdmin(admin.ModelAdmin):
-    list_display = ['add_image', 'is_active']
+    list_display = ['image_by_title', 'add_image', 'is_active']
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
@@ -57,6 +56,13 @@ class CareersModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Careers, CareersModelAdmin)
+
+
+class TopBannerImagesAdmin(admin.ModelAdmin):
+    list_display = ['image_by_title', 'image', 'Banner']
+
+
+admin.site.register(TopBannerImages, TopBannerImagesAdmin)
 
 admin.site.site_header = "Mob Studios"
 admin.site.site_title = "Admin Panel"
