@@ -1,7 +1,7 @@
 from django.contrib import admin, messages
 from rest_framework.exceptions import ValidationError
 
-from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner
+from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner
 from .permission import CustomAdmin
 from django.contrib.auth.models import Group
 
@@ -12,6 +12,7 @@ from django.contrib.auth.models import Group
 
 admin.site.register(TopBanner, CustomAdmin)
 admin.site.register(CareerBanner, CustomAdmin)
+admin.site.register(AboutBanner)
 
 
 class TopPacksModelAdmin(admin.ModelAdmin):

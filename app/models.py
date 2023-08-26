@@ -70,3 +70,17 @@ class CareerBanner(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class AboutBanner(models.Model):
+    objects = None
+    title = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
+    folder_name = "AboutBanner"
+    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "AboutBanner"

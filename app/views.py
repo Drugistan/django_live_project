@@ -1,6 +1,7 @@
 from .base_view import BaseBannerView
-from .models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks
-from .api.serializer import TopBannerGetSerializer, TestimonialGetSerializer, CareersGetSerializer, TopPacksSerializer
+from .models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner
+from .api.serializer import TopBannerGetSerializer, TestimonialGetSerializer, CareersGetSerializer, TopPacksSerializer, \
+    AboutBannerGetSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
@@ -13,6 +14,12 @@ class TopBannerGetView(BaseBannerView):
     model = TopBanner
     serializer_class = TopBannerGetSerializer
     queryset = TopBanner.objects.all()
+
+
+class AboutBannerGetView(BaseBannerView):
+    model = AboutBanner
+    serializer_class = AboutBannerGetSerializer
+    queryset = AboutBanner.objects.all()
 
 
 class TestimonialGetView(APIView):

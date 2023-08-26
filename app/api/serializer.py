@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks
+from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner
 
 
 class TopBannerGetSerializer(serializers.ModelSerializer):
@@ -29,6 +29,12 @@ class CareerBannerSerializer(serializers.ModelSerializer):
 class TopPacksSerializer(serializers.ModelSerializer):
     class Meta:
         model = TopPacks
+        fields = "__all__"
+
+
+class AboutBannerGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutBanner
         fields = "__all__"
 
 
