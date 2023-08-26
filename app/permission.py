@@ -9,3 +9,14 @@ class CustomAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+class CustomTopBanner(admin.ModelAdmin):
+    list_display = ["title", "description"]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+

@@ -1,11 +1,19 @@
 from rest_framework import serializers
-from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner
+from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, TopBannerImages
+
+
+class TopBannerImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TopBannerImages
+        fields = "__all__"
 
 
 class TopBannerGetSerializer(serializers.ModelSerializer):
+    images = TopBannerImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = TopBanner
-        fields = "__all__"
+        fields = ['title', 'description', 'images']
 
 
 class TestimonialGetSerializer(serializers.ModelSerializer):
@@ -36,6 +44,5 @@ class AboutBannerGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutBanner
         fields = "__all__"
-
 
 # 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

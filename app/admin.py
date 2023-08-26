@@ -1,8 +1,8 @@
 from django.contrib import admin, messages
 from rest_framework.exceptions import ValidationError
 
-from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner
-from .permission import CustomAdmin
+from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, TopBannerImages
+from .permission import CustomAdmin, CustomTopBanner
 from django.contrib.auth.models import Group
 
 # @admin.register(TopBanner)
@@ -10,9 +10,10 @@ from django.contrib.auth.models import Group
 #     list_display = ["title", "description", "image"]
 
 
-admin.site.register(TopBanner, CustomAdmin)
+admin.site.register(TopBanner, CustomTopBanner)
 admin.site.register(CareerBanner, CustomAdmin)
 admin.site.register(AboutBanner)
+admin.site.register(TopBannerImages)
 
 
 class TopPacksModelAdmin(admin.ModelAdmin):

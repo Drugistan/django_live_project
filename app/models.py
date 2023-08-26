@@ -13,14 +13,31 @@ class TopBanner(models.Model):
     objects = None
     title = models.CharField(max_length=100, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
-    folder_name = "TopBanner"
-    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
 
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "TopBanner"
+
+
+
+
+class TopBannerImages(models.Model):
+    image_by_title = models.CharField(max_length=100, null=False, blank=False)
+    folder_name = "TopBannerImages"
+    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
+    Banner = models.ForeignKey(TopBanner, on_delete=models.CASCADE, related_name='images')
+
+    def __str__(self):
+        return self.image_by_title
+
+    class Meta:
+        verbose_name_plural = "TopBannerImages"
+
 
 class TopPacks(models.Model):
+    image_by_title = models.CharField(max_length=100, null=False, blank=False)
     folder_name = "TopPacks"
     add_image = models.ImageField(upload_to=image_path_rename, max_length=255, null=False, blank=False)
     is_active = models.BooleanField(default=False)
@@ -29,6 +46,9 @@ class TopPacks(models.Model):
 
     def __str__(self):
         return "Image add by this name {} ".format(self.add_image)
+
+    class Meta:
+        verbose_name_plural = "TopPacks"
 
 
 class Testimonial(models.Model):
@@ -42,6 +62,9 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return self.client_name
+
+    class Meta:
+        verbose_name_plural = "Testimonial"
 
 
 class Careers(models.Model):
@@ -60,6 +83,9 @@ class Careers(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "Careers"
+
 
 class CareerBanner(models.Model):
     objects = None
@@ -71,6 +97,8 @@ class CareerBanner(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "CareerBanner"
 
 class AboutBanner(models.Model):
     objects = None
