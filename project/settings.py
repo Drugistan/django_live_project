@@ -152,6 +152,8 @@ CORS_ALLOW_METHODS = [
     'OPTIONS',
 ]
 
+BASE_URL = "https://kobmob.pythonanywhere.com/"
+
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',

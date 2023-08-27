@@ -21,8 +21,6 @@ class TopBanner(models.Model):
         verbose_name_plural = "TopBanner"
 
 
-
-
 class TopBannerImages(models.Model):
     image_by_title = models.CharField(max_length=100, null=False, blank=False)
     folder_name = "TopBannerImages"
@@ -99,6 +97,7 @@ class CareerBanner(models.Model):
 
     class Meta:
         verbose_name_plural = "CareerBanner"
+
 
 class AboutBanner(models.Model):
     objects = None
