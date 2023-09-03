@@ -1,25 +1,13 @@
 from django.conf import settings
 from rest_framework import serializers
-from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, TopBannerImages
+from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, FAQ, PortFolio, \
+    AboutAsserts
 from django.http import HttpRequest
 
 from app.utlis import get_full_image_path
 
 
-class TopBannerImageSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-
-    class Meta:
-        model = TopBannerImages
-        exclude = ['Banner', 'image_by_title']
-
-    def get_image(self, obj):
-        return get_full_image_path(self, obj)
-
-
 class TopBannerGetSerializer(serializers.ModelSerializer):
-    images = TopBannerImageSerializer(many=True, read_only=True)
-
     class Meta:
         model = TopBanner
         fields = ['title', 'description', 'images']
@@ -77,4 +65,33 @@ class AboutBannerGetSerializer(serializers.ModelSerializer):
         model = AboutBanner
         fields = "__all__"
 
-# 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
+
+class FAQSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FAQ
+        fields = "__all__"
+
+
+class PortfolioSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PortFolio
+        fields = "__all__"
+
+    def get_image(self, obj):
+        return get_full_image_path(self, obj)
+
+
+class AboutAssertsSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AboutAsserts
+        fields = "__all__"
+
+    def get_image(self, obj):
+        return get_full_image_path(self, obj)
+
+# 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

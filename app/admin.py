@@ -1,18 +1,12 @@
 from django.contrib import admin, messages
-from rest_framework.exceptions import ValidationError
 
-from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, TopBannerImages
-from .permission import CustomAdmin, CustomTopBanner
+from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, FAQ, PortFolio, AboutAsserts
+from .permission import CareerBannerAdmin, CustomTopBanner, AboutBannerAdmin
 from django.contrib.auth.models import Group
 
-# @admin.register(TopBanner)
-# class PersonAdmin(admin.ModelAdmin):
-#     list_display = ["title", "description", "image"]
-
-
 admin.site.register(TopBanner, CustomTopBanner)
-admin.site.register(CareerBanner, CustomAdmin)
-admin.site.register(AboutBanner)
+admin.site.register(CareerBanner, CareerBannerAdmin)
+admin.site.register(AboutBanner, AboutBannerAdmin)
 
 
 class TopPacksModelAdmin(admin.ModelAdmin):
@@ -58,14 +52,44 @@ class CareersModelAdmin(admin.ModelAdmin):
 admin.site.register(Careers, CareersModelAdmin)
 
 
-class TopBannerImagesAdmin(admin.ModelAdmin):
-    list_display = ['image_by_title', 'image', 'Banner']
+class FAQModelAdmin(admin.ModelAdmin):
+    list_display = ['question', 'answer', 'is_active']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.is_active:
+            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not Appear",
+                              level=messages.WARNING)
+            self.message_user(request, "Warning: at least one FAQ must be marks ad check 'is_active' ",
+                              level=messages.WARNING)
+        super().save_model(request, obj, form, change)
 
 
-admin.site.register(TopBannerImages, TopBannerImagesAdmin)
+admin.site.register(FAQ, FAQModelAdmin)
 
-admin.site.site_header = "Mob Studios"
-admin.site.site_title = "Admin Panel"
-admin.site.index_title = "Features"
+
+class PortFolioModelAdmin(admin.ModelAdmin):
+    list_display = ['portfolio_title', 'portfolio_detail', 'is_active', 'image']
+
+    def save_model(self, request, obj, form, change):
+        if not obj.is_active:
+            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not Appear",
+                              level=messages.WARNING)
+            self.message_user(request, "Warning: at least one FAQ must be marks ad check 'is_active' ",
+                              level=messages.WARNING)
+        super().save_model(request, obj, form, change)
+
+
+admin.site.register(PortFolio, PortFolioModelAdmin)
+
+
+class AboutAssertsModelAdmin(admin.ModelAdmin):
+    list_display = ['assert_title', 'assert_detail', 'image']
+
+
+admin.site.register(AboutAsserts, AboutAssertsModelAdmin)
+
+admin.site.site_header = "MOB STUDIO"
+admin.site.site_title = "ADMIN CONTROL"
+admin.site.index_title = "ADMINISTRATION FEATURES"
 
 admin.site.unregister(Group)  # new

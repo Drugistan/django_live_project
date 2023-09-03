@@ -1,7 +1,7 @@
 from .base_view import BaseBannerView
-from .models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner
+from .models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, FAQ, PortFolio, AboutAsserts
 from .api.serializer import TopBannerGetSerializer, TestimonialGetSerializer, CareersGetSerializer, TopPacksSerializer, \
-    AboutBannerGetSerializer, TopBannerImageSerializer, CareerBannerSerializer
+    AboutBannerGetSerializer, CareerBannerSerializer, FAQSerializer, PortfolioSerializer, AboutAssertsSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
@@ -16,12 +16,16 @@ class TopBannerGetView(BaseBannerView):
     queryset = TopBanner.objects.all()
 
 
-
-
 class AboutBannerGetView(BaseBannerView):
     model = AboutBanner
     serializer_class = AboutBannerGetSerializer
     queryset = AboutBanner.objects.all()
+
+
+class CareersBannerView(BaseBannerView):
+    model = CareerBanner
+    serializer_class = CareerBannerSerializer
+    queryset = CareerBanner.objects.all()
 
 
 class TestimonialGetView(APIView):
@@ -34,11 +38,11 @@ class TestimonialGetView(APIView):
             if serializer_:
                 return Response(serializer_.data, status=HTTP_200_OK)
             else:
-                return Response({"error_message": "Something Went Wrong", "status_code": 400},
-                                status=HTTP_400_BAD_REQUEST)
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
         else:
-            return Response({"error_message": "Testimonial is not available at this time", "status_code": 400},
-                            status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Testimonial is not available at this time", "status_code": 400},
+                            status=HTTP_200_OK)
 
 
 class CareersView(APIView):
@@ -51,17 +55,11 @@ class CareersView(APIView):
             if serializer_:
                 return Response(serializer_.data, status=HTTP_200_OK)
             else:
-                return Response({"error_message": "Something Went Wrong", "status_code": 400},
-                                status=HTTP_400_BAD_REQUEST)
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
         else:
-            return Response({"error_message": "Careers is not available at this time", "status_code": 400},
-                            status=HTTP_400_BAD_REQUEST)
-
-
-class CareersBannerView(BaseBannerView):
-    model = CareerBanner
-    serializer_class = CareerBannerSerializer
-    queryset = CareerBanner.objects.all()
+            return Response({"message": "Careers is not available at this time", "status_code": 200},
+                            status=HTTP_200_OK)
 
 
 class TopPacksGetView(APIView):
@@ -74,8 +72,60 @@ class TopPacksGetView(APIView):
             if serializer_:
                 return Response(serializer_.data, status=HTTP_200_OK)
             else:
-                return Response({"error_message": "Something Went Wrong", "status_code": 400},
-                                status=HTTP_400_BAD_REQUEST)
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
         else:
-            return Response({"error_message": "TopPacks is not available at this time", "status_code": 400},
-                            status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "TopPacks is not available at this time", "status_code": 200},
+                            status=HTTP_200_OK)
+
+
+class FAQGetView(APIView):
+
+    @staticmethod
+    def get(request):
+        faq_ = FAQ.active_faq.get_active_faq()
+        if faq_:
+            serializer_ = FAQSerializer(faq_, many=True)
+            if serializer_:
+                return Response(serializer_.data, status=HTTP_200_OK)
+            else:
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
+        else:
+            return Response({"message": "FAQ is not available at this time", "status_code": 200},
+                            status=HTTP_200_OK)
+
+
+class PortFolioGetView(APIView):
+
+    @staticmethod
+    def get(request):
+        portfolio = PortFolio.active_portfolio.get_active_portfolio()
+        if portfolio:
+            serializer_ = PortfolioSerializer(portfolio, many=True)
+            if serializer_:
+                return Response(serializer_.data, status=HTTP_200_OK)
+            else:
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
+        else:
+            return Response({"message": "portfolio is not available at this time", "status_code": 200},
+                            status=HTTP_200_OK)
+
+
+class AboutAssertGetView(APIView):
+
+    @staticmethod
+    def get(request):
+        about_assert = AboutAsserts.objects.all()
+        if about_assert:
+            serializer_ = AboutAssertsSerializer(about_assert, many=True)
+            if serializer_:
+                return Response(serializer_.data, status=HTTP_200_OK)
+            else:
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
+        else:
+            return Response({"message": "About Asserts  is not available at this time", "status_code": 200},
+                            status=HTTP_200_OK)
+

@@ -12,10 +12,9 @@ class BaseBannerView(APIView):
 
     def get(self, request):
         queryset = self.get_queryset()
-        print(queryset)
         if queryset.exists():
             serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data, status=HTTP_200_OK)
         else:
-            return Response({"error_message": "Something Went Wrong", "status_code": 400},
-                            status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "Something Went Wrong", "status_code": 200},
+                            status=HTTP_200_OK)
