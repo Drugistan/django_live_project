@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 
-from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, FAQ, PortFolio, AboutAsserts
+from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, FAQ, PortFolio, AboutAsserts, \
+    WhyChoseUs
 from .permission import CareerBannerAdmin, CustomTopBanner, AboutBannerAdmin
 from django.contrib.auth.models import Group
 
@@ -14,8 +15,12 @@ class TopPacksModelAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
-            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not show",
+            self.message_user(request, "Reminder. You are added something new."
+                                       " But you are not checked ' is_active ' option",
                               level=messages.WARNING)
+            self.message_user(request, "At Least one or more then one Top Packs must be ' is_active ' "
+                                       "checked otherwise new data will not appear on screen",
+                              level=messages.INFO)
         super().save_model(request, obj, form, change)
 
 
@@ -27,10 +32,12 @@ class TestimonialModelAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
-            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not show",
+            self.message_user(request, "Reminder. You are added something new."
+                                       "But you are not checked ' is_active ' option",
                               level=messages.WARNING)
-            self.message_user(request, "Warning: at least one Testimonial must be marks ad check 'is_active' ",
-                              level=messages.WARNING)
+            self.message_user(request, "At Least one or more then one Testimonials must be ' is_active ' "
+                                       "checked otherwise new data will not appear on screen",
+                              level=messages.INFO)
         super().save_model(request, obj, form, change)
 
 
@@ -42,10 +49,12 @@ class CareersModelAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
-            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not show",
+            self.message_user(request, "Reminder. You are added something new."
+                                       "But you are not checked ' is_active ' option",
                               level=messages.WARNING)
-            self.message_user(request, "Warning: at least one Career must be marks ad check 'is_active' ",
-                              level=messages.WARNING)
+            self.message_user(request, "At Least one or more then one Career must be ' is_active ' "
+                                       "checked otherwise new data will not appear on screen",
+                              level=messages.INFO)
         super().save_model(request, obj, form, change)
 
 
@@ -57,10 +66,12 @@ class FAQModelAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
-            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not Appear",
+            self.message_user(request, "Reminder. You are added something new."
+                                       "But you are not checked ' is_active ' option",
                               level=messages.WARNING)
-            self.message_user(request, "Warning: at least one FAQ must be marks ad check 'is_active' ",
-                              level=messages.WARNING)
+            self.message_user(request, "At Least one or more then one FAQS must be ' is_active ' "
+                                       "checked otherwise new data will not appear on screen",
+                              level=messages.INFO)
         super().save_model(request, obj, form, change)
 
 
@@ -72,10 +83,12 @@ class PortFolioModelAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
-            self.message_user(request, "Warning: 'is_active' field is not checked. Otherwise new data will not Appear",
+            self.message_user(request, "Reminder. You are added something new."
+                                       "But you are not checked ' is_active ' option",
                               level=messages.WARNING)
-            self.message_user(request, "Warning: at least one FAQ must be marks ad check 'is_active' ",
-                              level=messages.WARNING)
+            self.message_user(request, "At Least one or more then one Portfolio must be ' is_active ' "
+                                       "checked otherwise new data will not appear on screen",
+                              level=messages.INFO)
         super().save_model(request, obj, form, change)
 
 
@@ -87,6 +100,13 @@ class AboutAssertsModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AboutAsserts, AboutAssertsModelAdmin)
+
+
+class WhyChoseUsModelAdmin(admin.ModelAdmin):
+    list_display = ['title', 'description', 'image']
+
+
+admin.site.register(WhyChoseUs, WhyChoseUsModelAdmin)
 
 admin.site.site_header = "MOB STUDIO"
 admin.site.site_title = "ADMIN CONTROL"

@@ -17,7 +17,7 @@ class CareerBannerAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 
 class AboutBannerAdmin(admin.ModelAdmin):
@@ -35,11 +35,11 @@ class AboutBannerAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True
 
 
 class CustomTopBanner(admin.ModelAdmin):
-    list_display = ["title", "description"]
+    list_display = ["title", "description", "image"]
 
     def has_add_permission(self, request):
         if len(TopBanner.objects.all()) > 0:
@@ -53,4 +53,4 @@ class CustomTopBanner(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        return True

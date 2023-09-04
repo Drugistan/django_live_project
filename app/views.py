@@ -1,5 +1,6 @@
 from .base_view import BaseBannerView
-from .models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, FAQ, PortFolio, AboutAsserts
+from .models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, FAQ, PortFolio, AboutAsserts, \
+    WhyChoseUs
 from .api.serializer import TopBannerGetSerializer, TestimonialGetSerializer, CareersGetSerializer, TopPacksSerializer, \
     AboutBannerGetSerializer, CareerBannerSerializer, FAQSerializer, PortfolioSerializer, AboutAssertsSerializer
 from rest_framework.decorators import APIView
@@ -127,5 +128,22 @@ class AboutAssertGetView(APIView):
                                 status=HTTP_200_OK)
         else:
             return Response({"message": "About Asserts  is not available at this time", "status_code": 200},
+                            status=HTTP_200_OK)
+
+
+class WhyChoseUsGetView(APIView):
+
+    @staticmethod
+    def get(request):
+        why_chose = WhyChoseUs.objects.all()
+        if why_chose:
+            serializer_ = AboutAssertsSerializer(why_chose, many=True)
+            if serializer_:
+                return Response(serializer_.data, status=HTTP_200_OK)
+            else:
+                return Response({"message": "Something Went Wrong", "status_code": 200},
+                                status=HTTP_200_OK)
+        else:
+            return Response({"message": "Data is not available at this time", "status_code": 200},
                             status=HTTP_200_OK)
 
