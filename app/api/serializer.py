@@ -42,22 +42,15 @@ class CareerBannerSerializer(serializers.ModelSerializer):
 
 
 class TopPacksSerializer(serializers.ModelSerializer):
-    add_image = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = TopPacks
         fields = "__all__"
 
     def get_add_image(self, obj):
-        if obj.add_image:
-            if isinstance(self.context.get('request'), HttpRequest):
-                request = self.context.get('request')
-                full_url = request.build_absolute_uri(obj.add_image.url)
-                return full_url
-            else:
-                # If request is not available (e.g., in the admin panel), use a different approach
-                return settings.BASE_URL + obj.add_image.url  # Replace BASE_URL with your domain
-        return None
+        return get_full_image_path(self, obj)
+
 
 
 class AboutBannerGetSerializer(serializers.ModelSerializer):

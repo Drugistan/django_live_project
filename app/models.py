@@ -27,13 +27,13 @@ class TopBanner(models.Model):
 class TopPacks(models.Model):
     image_by_title = models.CharField(max_length=100, null=False, blank=False)
     folder_name = "TopPacks"
-    add_image = models.ImageField(upload_to=image_path_rename, max_length=255, null=False, blank=False)
+    image = models.ImageField(upload_to=image_path_rename, max_length=255, null=False, blank=False)
     is_active = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
     get_active_packs = ActiveTopPacksManager()
 
     def __str__(self):
-        return "Image add by this name {} ".format(self.add_image)
+        return "Image add by this name {} ".format(self.image)
 
     class Meta:
         verbose_name_plural = "Top Packs"
@@ -44,7 +44,7 @@ class Testimonial(models.Model):
     client_name = models.CharField(max_length=50, null=False, blank=False)
     designation = models.CharField(max_length=100, null=False, blank=False)
     company = models.CharField(max_length=100, null=True, blank=True)
-    description = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
     active_testimonial = ActiveTestimonialsManager()
 

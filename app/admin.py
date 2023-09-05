@@ -11,7 +11,7 @@ admin.site.register(AboutBanner, AboutBannerAdmin)
 
 
 class TopPacksModelAdmin(admin.ModelAdmin):
-    list_display = ['image_by_title', 'add_image', 'is_active']
+    list_display = ['image_by_title', 'image', 'is_active']
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
@@ -20,7 +20,7 @@ class TopPacksModelAdmin(admin.ModelAdmin):
                               level=messages.WARNING)
             self.message_user(request, "At Least one or more then one Top Packs must be ' is_active ' "
                                        "checked otherwise new data will not appear on screen",
-                              level=messages.INFO)
+                              level=messages.WARNING)
         super().save_model(request, obj, form, change)
 
 
@@ -37,7 +37,7 @@ class TestimonialModelAdmin(admin.ModelAdmin):
                               level=messages.WARNING)
             self.message_user(request, "At Least one or more then one Testimonials must be ' is_active ' "
                                        "checked otherwise new data will not appear on screen",
-                              level=messages.INFO)
+                              level=messages.WARNING)
         super().save_model(request, obj, form, change)
 
 
@@ -54,7 +54,7 @@ class CareersModelAdmin(admin.ModelAdmin):
                               level=messages.WARNING)
             self.message_user(request, "At Least one or more then one Career must be ' is_active ' "
                                        "checked otherwise new data will not appear on screen",
-                              level=messages.INFO)
+                              level=messages.WARNING)
         super().save_model(request, obj, form, change)
 
 
@@ -71,7 +71,7 @@ class FAQModelAdmin(admin.ModelAdmin):
                               level=messages.WARNING)
             self.message_user(request, "At Least one or more then one FAQS must be ' is_active ' "
                                        "checked otherwise new data will not appear on screen",
-                              level=messages.INFO)
+                              level=messages.WARNING)
         super().save_model(request, obj, form, change)
 
 
@@ -88,7 +88,7 @@ class PortFolioModelAdmin(admin.ModelAdmin):
                               level=messages.WARNING)
             self.message_user(request, "At Least one or more then one Portfolio must be ' is_active ' "
                                        "checked otherwise new data will not appear on screen",
-                              level=messages.INFO)
+                              level=messages.WARNING)
         super().save_model(request, obj, form, change)
 
 
