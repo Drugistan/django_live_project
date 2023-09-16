@@ -1,13 +1,16 @@
 from django.contrib import admin, messages
 
-from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, FAQ, PortFolio, AboutAsserts, \
-    WhyChoseUs
-from .permission import CareerBannerAdmin, CustomTopBanner, AboutBannerAdmin
+from .models import TopBanner, TopPacks, Careers, Testimonial, CareerBanner, AboutBanner, FAQ, PortFolio, AboutAsserts,\
+    WhyChoseUs, ContactBanner, ContactEmails
+from .permission import CareerBannerAdmin, CustomTopBanner, AboutBannerAdmin, WhyChoseUsAdmin, ContactBannerAdmin
+
 from django.contrib.auth.models import Group
 
 admin.site.register(TopBanner, CustomTopBanner)
 admin.site.register(CareerBanner, CareerBannerAdmin)
 admin.site.register(AboutBanner, AboutBannerAdmin)
+admin.site.register(ContactBanner, ContactBannerAdmin)
+admin.site.register(WhyChoseUs, WhyChoseUsAdmin)
 
 
 class TopPacksModelAdmin(admin.ModelAdmin):
@@ -79,20 +82,27 @@ admin.site.register(FAQ, FAQModelAdmin)
 
 
 class PortFolioModelAdmin(admin.ModelAdmin):
-    list_display = ['portfolio_title', 'portfolio_detail', 'is_active', 'image']
+    list_display = ['portfolio_title', 'portfolio_detail', 'image', 'tag']
+
+
+admin.site.register(PortFolio, PortFolioModelAdmin)
+
+
+class ContactActiveEmailsModelAdmin(admin.ModelAdmin):
+    list_display = ['department', 'is_active', 'email']
 
     def save_model(self, request, obj, form, change):
         if not obj.is_active:
             self.message_user(request, "Reminder. You are added something new."
                                        "But you are not checked ' is_active ' option",
                               level=messages.WARNING)
-            self.message_user(request, "At Least one or more then one Portfolio must be ' is_active ' "
+            self.message_user(request, "At Least one or more then one Emails must be ' is_active ' "
                                        "checked otherwise new data will not appear on screen",
                               level=messages.WARNING)
         super().save_model(request, obj, form, change)
 
 
-admin.site.register(PortFolio, PortFolioModelAdmin)
+admin.site.register(ContactEmails, ContactActiveEmailsModelAdmin)
 
 
 class AboutAssertsModelAdmin(admin.ModelAdmin):
@@ -100,13 +110,6 @@ class AboutAssertsModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AboutAsserts, AboutAssertsModelAdmin)
-
-
-class WhyChoseUsModelAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description', 'image']
-
-
-admin.site.register(WhyChoseUs, WhyChoseUsModelAdmin)
 
 admin.site.site_header = "MOB STUDIO"
 admin.site.site_title = "ADMIN CONTROL"

@@ -1,16 +1,20 @@
 from django.conf import settings
 from rest_framework import serializers
 from app.models import TopBanner, Testimonial, Careers, CareerBanner, TopPacks, AboutBanner, FAQ, PortFolio, \
-    AboutAsserts
-from django.http import HttpRequest
+    AboutAsserts, ContactBanner, ContactEmails, WhyChoseUs
 
-from app.utlis import get_full_image_path
+from app.utils import get_full_image_path
 
 
 class TopBannerGetSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = TopBanner
-        fields = ['title', 'description', 'images']
+        fields = ['title', 'description', 'image']
+
+    def get_image(self, obj):
+        return get_full_image_path(self, obj)
 
 
 class TestimonialGetSerializer(serializers.ModelSerializer):
@@ -48,9 +52,8 @@ class TopPacksSerializer(serializers.ModelSerializer):
         model = TopPacks
         fields = "__all__"
 
-    def get_add_image(self, obj):
+    def get_image(self, obj):
         return get_full_image_path(self, obj)
-
 
 
 class AboutBannerGetSerializer(serializers.ModelSerializer):
@@ -60,7 +63,6 @@ class AboutBannerGetSerializer(serializers.ModelSerializer):
 
 
 class FAQSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = FAQ
         fields = "__all__"
@@ -87,4 +89,33 @@ class AboutAssertsSerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         return get_full_image_path(self, obj)
 
+
 # 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
+
+
+class ContactBannerSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ContactBanner
+        fields = "__all__"
+
+    def get_image(self, obj):
+        return get_full_image_path(self, obj)
+
+
+class ContactEmailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactEmails
+        fields = "__all__"
+
+
+class WhyChoseUsSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = WhyChoseUs
+        fields = "__all__"
+
+    def get_image(self, obj):
+        return get_full_image_path(self, obj)

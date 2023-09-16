@@ -13,7 +13,7 @@ class ActiveTopPacksManager(models.Manager):
 
 class ActiveTestimonialsManager(models.Manager):
     def get_active_testimonial(self):
-        return super().get_queryset().filter(is_active=True).order_by("-id")[:5]
+        return super().get_queryset().filter(is_active=True).order_by("-id")[:10]
 
 
 class ActiveFAQManager(models.Manager):
@@ -21,6 +21,6 @@ class ActiveFAQManager(models.Manager):
         return super().get_queryset().filter(is_active=True).order_by("-id")
 
 
-class PortFolioQManager(models.Manager):
-    def get_active_portfolio(self):
-        return super().get_queryset().filter(is_active=True).order_by("-id")
+class ActiveEmailManager(models.Manager):
+    def get_active_emails(self):
+        return super().get_queryset().filter(is_active=True).order_by("-id")[:5]

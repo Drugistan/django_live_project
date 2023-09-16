@@ -1,7 +1,8 @@
 
 from django.urls import path
 from .views import TopBannerGetView, TestimonialGetView, CareersView, TopPacksGetView, CareersBannerView, \
-    AboutBannerGetView, WhyChoseUsGetView, FAQGetView, PortFolioGetView, AboutAssertGetView
+    AboutBannerGetView, WhyChoseUsGetView, FAQGetView, PortFolioGetView, AboutAssertGetView, ContactBannerView, \
+    ContactEmailsGetView
 
 urlpatterns = [
     path('top-banner', TopBannerGetView.as_view()),
@@ -13,6 +14,8 @@ urlpatterns = [
     path('why-chose-us', WhyChoseUsGetView.as_view()),
     path('our-faq', FAQGetView.as_view()),
     path('portfolio', PortFolioGetView.as_view()),
-    path('about-asserts', AboutAssertGetView.as_view())
+    path('about-asserts', AboutAssertGetView.as_view()),
+    path('contact-banner', ContactBannerView.as_view()),
+    path('contact-email', ContactEmailsGetView.as_view()),
 ]
 

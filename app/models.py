@@ -2,7 +2,7 @@ from django.db import models
 import os
 
 from app.managers import ActiveCareersManager, ActiveTopPacksManager, ActiveTestimonialsManager, ActiveFAQManager, \
-    PortFolioQManager
+    ActiveEmailManager
 
 
 def image_path_rename(instance, filename):
@@ -30,6 +30,7 @@ class TopPacks(models.Model):
     image = models.ImageField(upload_to=image_path_rename, max_length=255, null=False, blank=False)
     is_active = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
+    url = models.URLField(blank=True, null=True)
     get_active_packs = ActiveTopPacksManager()
 
     def __str__(self):
@@ -116,21 +117,6 @@ class FAQ(models.Model):
         verbose_name_plural = "FAQ"
 
 
-class PortFolio(models.Model):
-    folder_name = "Porfolio"
-    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
-    portfolio_detail = models.TextField(null=True, blank=True)
-    portfolio_title = models.CharField(max_length=100, null=True, blank=True)
-    is_active = models.BooleanField(default=False)
-    active_portfolio = PortFolioQManager()
-
-    def __str__(self):
-        return self.portfolio_title
-
-    class Meta:
-        verbose_name_plural = "Portfolio"
-
-
 class AboutAsserts(models.Model):
     objects = None
     folder_name = "Asserts"
@@ -157,3 +143,51 @@ class WhyChoseUs(models.Model):
 
     class Meta:
         verbose_name_plural = "Why Chose Us"
+
+
+class ContactBanner(models.Model):
+    objects = None
+    title = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    folder_name = "ContactBanner"
+    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "Contact Banner"
+
+
+class ContactEmails(models.Model):
+    email = models.EmailField()
+    department = models.CharField(max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=False)
+    active_emails = ActiveEmailManager()
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name_plural = "Contact Emails"
+
+
+class PortFolio(models.Model):
+    objects = None
+    model_choice = (
+        ('all', 'all'),
+        ('ui/ux', 'ui/ux'),
+        ('game development', 'game development'),
+
+    )
+    folder_name = "Porfolio"
+    image = models.ImageField(upload_to=image_path_rename, null=False, blank=False)
+    tag = models.CharField(max_length=100, default='all', choices=model_choice, null=False, blank=False)
+    portfolio_detail = models.TextField(null=True, blank=True)
+    portfolio_title = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.portfolio_title
+
+    class Meta:
+        verbose_name_plural = "Portfolio"

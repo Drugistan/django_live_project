@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mob_studios',
-        'USER': 'admin',
-        'PASSWORD': 'mob',
+        'NAME': 'mobstudio',
+        'USER': 'mobs',
+        'PASSWORD': 'mobs',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': 5432,
     }
 }
 
